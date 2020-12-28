@@ -3,7 +3,6 @@ import Head from "next/head";
 import { FunctionComponent } from "react";
 import { GetServerSideProps } from "next";
 import * as df from "date-fns";
-import { first, last } from "lodash";
 import { Nav } from "../../components/nav";
 
 interface HotelImage {
