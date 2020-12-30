@@ -1,4 +1,6 @@
 import { AppProps } from "next/app";
+import "../styles/globals.css";
+import "react-dates/initialize";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />;
