@@ -3,7 +3,7 @@ import Head from "next/head";
 import { FunctionComponent } from "react";
 import type { IndHotel, Region } from "./api/get-hotels";
 import { useSearchInput } from "../hooks/use-search-input";
-import { Moment } from "moment";
+import { duration, Moment } from "moment";
 import { States, useApi } from "../hooks/use-api";
 import { first, last } from "lodash";
 
@@ -12,9 +12,10 @@ const applyToRates = <T extends {}>(
   f: (...a: number[]) => T
 ): T => f(...room.rates.map((rate) => rate.retailRate.total.amount));
 
-const HotelPrice: FunctionComponent<{ rooms: IndHotel["roomTypes"] }> = ({
-  rooms,
-}) => {
+const HotelPrice: FunctionComponent<{
+  rooms: IndHotel["roomTypes"];
+  duration: string;
+}> = ({ rooms }) => {
   const rates = rooms
     .flatMap((room) => room.rates.map((rate) => rate.retailRate.total))
     .slice()
@@ -30,7 +31,7 @@ const HotelPrice: FunctionComponent<{ rooms: IndHotel["roomTypes"] }> = ({
   return (
     <>
       From {lowest.amount / 100} {lowest.currency.code} to{" "}
-      {highest.amount / 100} {highest.currency.code}
+      {highest.amount / 100} {highest.currency.code} {duration}
     </>
   );
 };
@@ -50,7 +51,7 @@ const Hotel = (duration: string): FunctionComponent<IndHotel> => (hotel) => (
       height={imgHeight}
     />
     <div>
-      <HotelPrice rooms={hotel.roomTypes} /> {duration}
+      <HotelPrice rooms={hotel.roomTypes} duration={duration} />
     </div>
   </div>
 );
