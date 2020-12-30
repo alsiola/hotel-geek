@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Head from "next/head";
 import { FunctionComponent } from "react";
 import type { IndHotel, Region } from "./api/get-hotels";
@@ -45,14 +44,24 @@ const Hotel = (duration: string): FunctionComponent<IndHotel> => (hotel) => (
     <div>
       {hotel.address.region || hotel.address.city}, {hotel.address.country}
     </div>
-    <Image
-      src={`${hotel.images[0].url}?w=${imgWidth}h=${imgHeight}`}
-      width={imgWidth}
-      height={imgHeight}
-    />
+    <div
+      style={{
+        width: `${imgWidth}px`,
+        height: `${imgHeight}px`,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        background: "lightgray",
+        borderRadius: "10px",
+      }}
+    >
+      <img src={`${hotel.images[0].url}?w=${imgWidth}&h=${imgHeight}`} />
+    </div>
+
     <div>
       <HotelPrice rooms={hotel.roomTypes} duration={duration} />
     </div>
+    <hr />
   </div>
 );
 
